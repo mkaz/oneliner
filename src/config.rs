@@ -7,10 +7,10 @@ use toml;
 #[derive(Clone, Deserialize)]
 pub struct Config {
     pub path: String,
-    
+
     #[serde(default = "default_filename")]
     pub filename: String,
-    
+
     #[serde(default = "default_prefix")]
     pub prefix: String,
 }
@@ -29,8 +29,10 @@ pub fn get_config(filearg: Option<&str>) -> Config {
     // check filename exists
     let config_path = Path::new(&filename);
     if !config_path.exists() {
-        println!("Config file not found. {:?}", config_path);
-        // TODO: better error message
+        println!("! Config file not found !\n");
+        println!("Create a config using: oneliner --gen-config > oneliner.conf\n");
+        println!("Edit and put file in ~/.config/ directory is a good location.");
+        println!("See readme at https://github.com/mkaz/oneliner for other config dir locations");
         std::process::exit(1);
     }
 
@@ -92,4 +94,26 @@ fn determine_filename(filearg: Option<&str>) -> String {
 
     // default
     return "oneliner.conf".to_string();
+}
+
+pub fn sample_config() -> String {
+    return r###"
+# oneliner config file
+
+# Base directory that all notes are stored
+# Use full path for directory
+path = '/Users/mkaz/Documents/'
+
+# Default filename
+filename = 'oneliner-%Y.txt'
+
+# Format for data prefix before each line
+# 2022-12-01 | YOUR NOTE HERE
+prefix = '%Y-%m-%d'
+
+
+# For time parameters see:
+# https://docs.rs/chrono/0.4.0/chrono/format/strftime/index.html
+    "###
+    .to_string();
 }

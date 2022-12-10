@@ -22,6 +22,11 @@ fn main() {
                 .takes_value(true),
         )
         .arg(
+            Arg::new("gen-config")
+                .help("Output a sample config")
+                .long("gen-config"),
+        )
+        .arg(
             Arg::new("yesterday")
                 .help("Set with yesterday's date")
                 .short('y')
@@ -43,6 +48,11 @@ fn main() {
 
     // read in config
     let config = config::get_config(args.value_of("config"));
+
+    if args.is_present("gen-config") {
+        println!("{}", config::sample_config());
+        std::process::exit(1);
+    }
 
     // create filename from config
     let dt: DateTime<Utc> = if args.is_present("yesterday") {
