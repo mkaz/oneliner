@@ -107,7 +107,7 @@ path = '/Users/mkaz/Documents/'
 # Default filename
 filename = 'oneliner-%Y.txt'
 
-# Format for data prefix before each line
+# Format for date prefix before each line
 # 2022-12-01 | YOUR NOTE HERE
 prefix = '%Y-%m-%d'
 
