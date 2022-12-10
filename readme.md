@@ -14,9 +14,13 @@ $ oneliner "Here is my note"
 
 ## Install
 
-1. Build from source.
+1.  a) Build from source, requires rust toolchain
 
-2. Create oneliner.conf, see [Configuration below](#configuration)
+    b) Download from [GitHub releases](https://github.com/mkaz/oneliner/releases)
+
+    -   The binaries aren't signed, so Mac users will need to jump through [their hoops](https://support.apple.com/en-us/HT202491)
+
+2.  Create oneliner.conf, see [Configuration below](#configuration)
 
 ## Usage
 
