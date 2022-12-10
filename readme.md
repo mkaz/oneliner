@@ -2,6 +2,16 @@
 
 A simple command-line tool for saving one line notes in plain text files.
 
+## Example
+
+![Demo GIF](https://user-images.githubusercontent.com/45363/206862140-a7fc3b36-a23e-40ea-8a0f-acfcc5636ecd.gif)
+
+Use `oneliner` by adding note on the command-line
+
+```
+$ oneliner "Here is my note"
+```
+
 ## Install
 
 1. Build from source.
@@ -11,14 +21,6 @@ A simple command-line tool for saving one line notes in plain text files.
 ## Usage
 
 See `oneliner --help` for help.
-
-### Add note
-
-Use `oneliner` with note as the command-line argument
-
-```
-$ oneliner "Here is my note"
-```
 
 ## Configuration
 
