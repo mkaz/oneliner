@@ -26,11 +26,36 @@ $ oneliner "Here is my note"
 
 See `oneliner --help` for help.
 
+
+Add one line note to default file with today's date
+
+```
+    oneliner 'This is my note'
+```
+
+Forgot to record yesterday, use `--yesterday` flag to use previous date
+
+```
+    oneline --yesterday "This is my note for yesterday"
+```
+
+Multiple journals, use `--journal` flag, requires config
+
+```
+    oneliner -j movies '😱 Halloween 1978'
+```
+
+
 ## Configuration
+
+The config file is in TOML format.
 
 The only required parameter in the `oneliner.conf` config is the `path` which specifies where to save the notes file. The other parameters, if not specified, will use their defaults.
 
-You can generate a sample config using: `oneliner --gen-config`
+To save to multiple journals, use a `[journals]` section in the config file and specify a journal_path and journal_filename, where "journal" would be the flagged passed in. For example, to create a movies journal specify `movies_path` and `movies_filename` and then use `-j movies` flag.
+
+
+### Where to put the config
 
 The program looks for the config file using the following:
 
@@ -52,7 +77,8 @@ If not specified or found in any of the above locations, `oneliner` will error o
 
 ### Sample Config
 
-The config file is in TOML format, example:
+You can generate a sample config using: `oneliner --gen-config`
+
 
 ```toml
 
@@ -72,9 +98,9 @@ prefix = '%Y-%m-%d'
 # Multiple Journals
 # Use: oneliner -j movies '😱 Halloween 1978'
 
-# [journals]
-# movies_filename = 'movies-%Y.txt'
-# movies_path = '/Users/mkaz/Documents/Lists'
+[journals]
+movies_filename = 'movies-%Y.txt'
+movies_path = '/Users/mkaz/Documents/Lists'
 
 # For time parameters see:
 # https://docs.rs/chrono/0.4.0/chrono/format/strftime/index.html
