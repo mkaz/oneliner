@@ -69,6 +69,12 @@ filename = 'oneliner-%Y.txt'
 # 2022-12-01 | YOUR NOTE HERE
 prefix = '%Y-%m-%d'
 
+# Multiple Journals
+# Use: oneliner -j movies '😱 Halloween 1978'
+
+# [journals]
+# movies_filename = 'movies-%Y.txt'
+# movies_path = '/Users/mkaz/Documents/Lists'
 
 # For time parameters see:
 # https://docs.rs/chrono/0.4.0/chrono/format/strftime/index.html

@@ -1,4 +1,5 @@
 use serde::Deserialize;
+use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::path::Path;
@@ -13,6 +14,8 @@ pub struct Config {
 
     #[serde(default = "default_prefix")]
     pub prefix: String,
+
+    pub journals: HashMap<String, String>,
 }
 
 fn default_filename() -> String {
@@ -110,6 +113,13 @@ filename = 'oneliner-%Y.txt'
 # Format for date prefix before each line
 # 2022-12-01 | YOUR NOTE HERE
 prefix = '%Y-%m-%d'
+
+# Multiple Journals
+# Use: oneliner -j movies '😱 Halloween 1978'
+
+# [journals]
+# movies_filename = 'movies-%Y.txt'
+# movies_path = '/Users/mkaz/Documents/Lists'
 
 
 # For time parameters see:

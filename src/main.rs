@@ -27,6 +27,13 @@ fn main() {
                 .long("gen-config"),
         )
         .arg(
+            Arg::new("journal")
+                .help("Alternate Journal file")
+                .short('j')
+                .long("journal")
+                .takes_value(true),
+        )
+        .arg(
             Arg::new("yesterday")
                 .help("Set with yesterday's date")
                 .short('y')
@@ -40,7 +47,12 @@ fn main() {
         .after_help(
             "Create notes:
 
-        oneliner 'This is my note'",
+        oneliner 'This is my note'
+
+    Alternate journal (requires config)
+
+        oneliner -j movies '😱 Halloween 1978'
+        ",
         )
         .get_matches();
 
@@ -54,22 +66,48 @@ fn main() {
         std::process::exit(1);
     }
 
-    // create filename from config
+    // Setup date - check for yesterday
     let dt: DateTime<Utc> = if args.is_present("yesterday") {
         Utc::now() - Duration::days(1)
     } else {
         Utc::now()
     };
 
-    let notes_path = Path::new(&config.path).to_path_buf();
-    let filename = dt.format(&config.filename).to_string();
+    // Defaults
+    let mut path = config.path;
+    let mut filename = config.filename;
+
+    // Check for alternate journal
+    if let Some(journal) = args.value_of("journal") {
+        let path_key = format!("{}_path", journal);
+
+        // check here config journals exists
+        match config.journals.get(&path_key) {
+            Some(val) => {
+                path = val.to_string();
+            }
+            None => {}
+        }
+
+        let filename_key = format!("{}_filename", journal);
+        match config.journals.get(&filename_key) {
+            Some(val) => {
+                filename = val.to_string();
+            }
+            None => {}
+        }
+    }
+
+    // create filename from config
+    let notes_path = Path::new(&path).to_path_buf();
+    let notes_filename = dt.format(&filename).to_string();
 
     if !notes_path.exists() {
         println!("Notes directory not found: {:?}", notes_path);
         println!("To make sure notes are not created in some random spot, the notes directory must already exist. Please create or change path config in oneliner.conf to an existing directory");
         std::process::exit(1);
     }
-    let file_path = notes_path.join(filename);
+    let file_path = notes_path.join(notes_filename);
 
     // get file content from command-line
     match args.values_of("content") {
