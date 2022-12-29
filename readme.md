@@ -14,26 +14,26 @@ $ oneliner "Here is my note"
 
 ## Install
 
-1.  a) Build from source, requires rust toolchain
+**Step 1:** Install - Three options to install
 
-    b) Download from [GitHub releases](https://github.com/mkaz/oneliner/releases)
+a) Build from source, requires rust toolchain
 
-    -   The binaries aren't signed, so Mac users will need to jump through [their hoops](https://support.apple.com/en-us/HT202491) or
+b) Download binaries from [GitHub releases](https://github.com/mkaz/oneliner/releases)
 
-	c) Using Homebrew on a Apple Silicon Mac?
+-   The binaries aren't signed, so Mac users will need to jump through [their hoops](https://support.apple.com/en-us/HT202491) or
+
+c) Using Homebrew on a Apple Silicon Mac?
 
 ```
 	brew tap mkaz/homebrew-oneliner
 	brew install oneliner
 ```
 
-
-2.  Create oneliner.conf, see [Configuration below](#configuration)
+**Step 2:** Create oneliner.conf, see [Configuration below](#configuration)
 
 ## Usage
 
 See `oneliner --help` for help.
-
 
 Add one line note to default file with today's date
 
@@ -53,7 +53,6 @@ Multiple journals, use `--journal` flag, requires config
     oneliner -j movies '😱 Halloween 1978'
 ```
 
-
 ## Configuration
 
 The config file is in TOML format.
@@ -61,7 +60,6 @@ The config file is in TOML format.
 The only required parameter in the `oneliner.conf` config is the `path` which specifies where to save the notes file. The other parameters, if not specified, will use their defaults.
 
 To save to multiple journals, use a `[journals]` section in the config file and specify a journal_path and journal_filename, where "journal" would be the flagged passed in. For example, to create a movies journal specify `movies_path` and `movies_filename` and then use `-j movies` flag.
-
 
 ### Where to put the config
 
@@ -86,7 +84,6 @@ If not specified or found in any of the above locations, `oneliner` will error o
 ### Sample Config
 
 You can generate a sample config using: `oneliner --gen-config`
-
 
 ```toml
 
