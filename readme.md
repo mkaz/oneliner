@@ -65,9 +65,9 @@ To save to multiple journals, use a `[journals]` section in the config file and 
 
 The program looks for the config file using the following:
 
-1. Command-line argument. Use `oneliner --config /path/to/oneliner.conf`
+1. Command-line argument. Use `oneliner --conf /path/to/oneliner.conf`
 
-2. Environment variable: `ONELINER_CONFIG_FILE`
+2. Environment variable: `ONELINER_CONF_FILE`
 
 3. Look for platform config directory
 
@@ -83,10 +83,9 @@ If not specified or found in any of the above locations, `oneliner` will error o
 
 ### Sample Config
 
-You can generate a sample config using: `oneliner --gen-config`
+You can generate a sample config using: `oneliner --sample`
 
 ```toml
-
 # oneliner config file
 
 # Base directory that all notes are stored

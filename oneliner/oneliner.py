@@ -5,14 +5,11 @@ Oneliner - command-line tool to take one line notes.
 from config import init_args
 from datetime import date, timedelta
 from pathlib import Path
+import sys
 
 
 def main():
     args = init_args()
-
-    if not args["content"]:
-        print("Nothing to write")
-        sys.exit()
 
     # Setup date - check for yesterday
     if args["yesterday"]:
@@ -34,14 +31,32 @@ def main():
 
     filepath = Path(args["path"], filename)
 
-    # date prefix
+    # display file content and exit
+    if args["show"]:
+        if not Path(filepath).is_file():
+            print(f"File does not exist: {filepath}")
+            sys.exit()
+
+        with open(filepath, "r") as f:
+            for line in f:
+                print(line.rstrip())  # print doubles up
+        sys.exit()
+
+    # writing content out to file
+    if not args["content"]:
+        print("Nothing to write")
+        sys.exit()
+
     prefix = dt.strftime(args["prefix"])
     content = " ".join(args["content"])
-    data = prefix + " | " + content
+    data = prefix + " | " + content + "\n"
 
     # open file for appends
     with open(filepath, "a") as f:
         f.write(data)
+
+    if args["info"]:
+        print(f"Wrote new line to {filepath}")
 
 
 if __name__ == "__main__":
