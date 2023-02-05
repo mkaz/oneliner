@@ -45,20 +45,31 @@ def init_args() -> Dict:
     else:
         conffile = find_conf_file()
 
-    if args["info"]:
-        print(f"Using {conffile}")
-
     ## read config
     config = toml.load(conffile)
-    # @TODO
 
-    if config["path"]:
-        args["path"] = config["path"]
+    ## alternate journal
+    if args["journal"]:
+        journal = args["journal"]
+        if journal not in config["journals"]:
+            print(f"Journal '{journal}' not found in config {conffile}")
+            sys.exit()
 
-    if config["filename"]:
-        args["filename"] = config["filename"]
+        if "filename" not in config["journals"][journal]:
+            print(f"Filename not specified for '{journal}'")
+            sys.exit()
+
+        args["filename"] = config["journals"][journal]["filename"]
+        args["path"] = config["journals"][journal]["path"]
+
     else:
-        args["filename"] = default_filename()
+        if config["path"]:
+            args["path"] = config["path"]
+
+        if config["filename"]:
+            args["filename"] = config["filename"]
+        else:
+            args["filename"] = default_filename()
 
     if config["prefix"]:
         args["prefix"] = config["prefix"]
@@ -123,8 +134,10 @@ prefix = '%Y-%m-%d'
 # Use: oneliner -j movies '😱 Halloween 1978'
 
 [journals]
-movies_filename = 'movies-%Y.txt'
-movies_path = '/Users/mkaz/Documents/Lists'
+
+[journals.movies]
+filename = 'movies-%Y.txt'
+path = '/Users/mkaz/Documents/Lists'
 
 
 # For time parameters see:

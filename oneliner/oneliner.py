@@ -17,8 +17,6 @@ def main():
     else:
         dt = date.today()
 
-    # TODO: check for alternate journal
-
     # Convert filename using date
     filename = dt.strftime(args["filename"])
     dirpath = Path(args["path"])

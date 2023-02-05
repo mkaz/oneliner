@@ -103,8 +103,10 @@ prefix = '%Y-%m-%d'
 # Use: oneliner -j movies '😱 Halloween 1978'
 
 [journals]
-movies_filename = 'movies-%Y.txt'
-movies_path = '/Users/mkaz/Documents/Lists'
+
+[journals.movies]
+filename = 'movies-%Y.txt'
+path = '/Users/mkaz/Documents/Lists'
 
 # For time parameters see:
 # https://docs.rs/chrono/0.4.0/chrono/format/strftime/index.html
