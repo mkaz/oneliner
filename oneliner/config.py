@@ -39,16 +39,26 @@ def init_args() -> Dict:
         print(sample_config())
         sys.exit()
 
-    ## get config file location
+    # get config file location
     if args["conf"]:
         conffile = args["conf"]
     else:
         conffile = find_conf_file()
 
+    # args is what gets returned config items
+    # will be merged over
+    args["filename"] = default_filename()
+    args["prefix"] = default_prefix()
+
     ## read config
     config = toml.load(conffile)
 
-    ## alternate journal
+    # Merge config over args
+    # anything in config will overwrite defaults
+    args = args | config
+
+    # If alternate journal specified, use config variables
+    # for that journal to override
     if args["journal"]:
         journal = args["journal"]
         if journal not in config["journals"]:
@@ -59,22 +69,8 @@ def init_args() -> Dict:
             print(f"Filename not specified for '{journal}'")
             sys.exit()
 
-        args["filename"] = config["journals"][journal]["filename"]
-        args["path"] = config["journals"][journal]["path"]
-
-    else:
-        if config["path"]:
-            args["path"] = config["path"]
-
-        if config["filename"]:
-            args["filename"] = config["filename"]
-        else:
-            args["filename"] = default_filename()
-
-    if config["prefix"]:
-        args["prefix"] = config["prefix"]
-    else:
-        args["prefix"] = default_prefix()
+        # merge journals config
+        args = args | config["journals"][journal]
 
     return args
 
