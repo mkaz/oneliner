@@ -23,7 +23,9 @@ def main():
     if not dirpath.is_dir():
         print(f"Notes directory not found: {dirpath}")
         print(
-            "To make sure notes are not created in some random spot, the notes directory must already exist. Please create or change path config in oneliner.conf to an existing directory"
+            """To make sure notes are not created in some random spot, the notes
+            directory must already exist. Please create or change path config
+            in oneliner.conf to an existing directory"""
         )
         sys.exit()
 

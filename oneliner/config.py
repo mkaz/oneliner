@@ -75,22 +75,15 @@ def init_args() -> Dict:
     return args
 
 
-def find_conf_file() -> str:
+def find_conf_file() -> Path:
     """Find config file"""
-
-    # check environment variable
-    if os.environ.get("ONELINER_CONF_FILE"):
-        return os.environ.get("ONELINER_CONF_FILE")
 
     # check for platform config directory
     dirs = AppDirs("Oneliner", "mkaz")
     if Path(dirs.user_config_dir, "oneliner.conf").is_file():
         return Path(dirs.user_config_dir, "oneliner.conf")
 
-    home = os.environ.get("HOME")
-    if not Path(home).is_dir():
-        print("No home directory !?")
-        sys.exit()
+    home = os.environ.get("HOME", "~")
 
     # check .config
     hc = f"{home}/.config/oneliner.conf"

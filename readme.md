@@ -67,17 +67,15 @@ The program looks for the config file using the following:
 
 1. Command-line argument. Use `oneliner --conf /path/to/oneliner.conf`
 
-2. Environment variable: `ONELINER_CONF_FILE`
-
-3. Look for platform config directory
+2. Look for platform config directory
 
     a. Linux: `${XDG_CONFIG_HOME}/oneliner.conf`
 
     b. Windows: `${APPDATA}/oneliner.conf`
 
-4. Look for `${HOME}/.config/oneliner.conf`
+3. Look for `${HOME}/.config/oneliner.conf`
 
-5. Current directions `./oneliner.conf`
+4. Current directions `./oneliner.conf`
 
 If not specified or found in any of the above locations, `oneliner` will error out with a message to set the configuration file.
 
