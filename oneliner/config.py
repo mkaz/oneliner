@@ -1,4 +1,3 @@
-from appdirs import AppDirs
 import argparse
 import os
 from pathlib import Path
@@ -78,28 +77,17 @@ def init_args() -> Dict:
 def find_conf_file() -> Path:
     """Find config file"""
 
-    # check for platform config directory
-    dirs = AppDirs("Oneliner", "mkaz")
-    if Path(dirs.user_config_dir, "oneliner.conf").is_file():
-        return Path(dirs.user_config_dir, "oneliner.conf")
-
     home = os.environ.get("HOME", "~")
 
     # check .config
-    hc = f"{home}/.config/oneliner.conf"
+    hc = f"{home}/.config/oneliner/config.toml"
     if Path(hc).is_file():
         return Path(hc)
 
-    # check .local
-    lc = f"{home}/.local/oneliner.conf"
-    if Path(lc).is_file():
-        return Path(lc)
-
-    # check current dir
-    if Path("oneliner.conf").is_file():
-        return Path("oneliner.conf")
-
-    print("Can not locate oneliner.conf")
+    print("Did not find $HOME/.config/oneliner/config.toml")
+    print("Create sample config using:")
+    print("   > mkdir $HOME/.config/oneliner")
+    print("   > oneliner --sample > $HOME/.config/oneliner/config.toml")
     sys.exit()
 
 
@@ -119,7 +107,8 @@ filename = 'oneliner-%Y.txt'
 prefix = '%Y-%m-%d'
 
 
-# Multiple Journals
+##----- Multiple Journals
+
 # Use: oneliner -j movies '😱 Halloween 1978'
 
 [journals]
