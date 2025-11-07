@@ -2,7 +2,8 @@
 """
 Oneliner - command-line tool to take one line notes.
 """
-from config import init_args
+
+from .config import init_args
 from datetime import date, timedelta
 from pathlib import Path
 import sys
