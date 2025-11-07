@@ -1,7 +1,7 @@
 
 [project]
 name = "oneliner"
-version = "0.3.0"
+version = "0.4.0"
 description = "Command-line tool for keeping single-line notes"
 readme = "readme.md"
 license = { text = "MIT" }
