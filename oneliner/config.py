@@ -1,19 +1,14 @@
 import argparse
-import os
-from pathlib import Path
 import sys
-import toml
+from pathlib import Path
 from typing import Dict
 
-VERSION = "0.3.0"
+import toml
 
+from . import __version__ as VERSION
 
-def default_filename() -> str:
-    return "oneliner-%Y.txt"
-
-
-def default_prefix() -> str:
-    return "%Y-%m-%d"
+DEFAULT_FILENAME = "oneliner-%Y.txt"
+DEFAULT_PREFIX = "%Y-%m-%d"
 
 
 def init_args() -> Dict:
@@ -46,10 +41,10 @@ def init_args() -> Dict:
 
     # args is what gets returned config items
     # will be merged over
-    args["filename"] = default_filename()
-    args["prefix"] = default_prefix()
+    args["filename"] = DEFAULT_FILENAME
+    args["prefix"] = DEFAULT_PREFIX
 
-    ## read config
+    # read config
     config = toml.load(conffile)
 
     # Merge config over args
@@ -77,12 +72,10 @@ def init_args() -> Dict:
 def find_conf_file() -> Path:
     """Find config file"""
 
-    home = os.environ.get("HOME", "~")
-
     # check .config
-    hc = f"{home}/.config/oneliner/config.toml"
-    if Path(hc).is_file():
-        return Path(hc)
+    hc = Path.home() / ".config/oneliner/config.toml"
+    if hc.is_file():
+        return hc
 
     print("Did not find $HOME/.config/oneliner/config.toml")
     print("Create sample config using:")
@@ -119,5 +112,5 @@ path = '/Users/mkaz/Documents/Lists'
 
 
 # For time parameters see:
-# https://docs.rs/chrono/0.4.0/chrono/format/strftime/index.html
+# https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior
 """

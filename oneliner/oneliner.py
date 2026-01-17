@@ -3,13 +3,14 @@
 Oneliner - command-line tool to take one line notes.
 """
 
-from .config import init_args
+import sys
 from datetime import date, timedelta
 from pathlib import Path
-import sys
+
+from .config import init_args
 
 
-def main():
+def main() -> None:
     args = init_args()
 
     # Setup date - check for yesterday
@@ -34,7 +35,7 @@ def main():
 
     # display file content and exit
     if args["show"]:
-        if not Path(filepath).is_file():
+        if not filepath.is_file():
             print(f"File does not exist: {filepath}")
             sys.exit()
 
@@ -50,7 +51,7 @@ def main():
 
     prefix = dt.strftime(args["prefix"])
     content = " ".join(args["content"])
-    data = prefix + " | " + content + "\n"
+    data = f"{prefix} | {content}\n"
 
     # open file for appends
     with open(filepath, "a") as f:

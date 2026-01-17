@@ -21,7 +21,7 @@ python3 -m pip install git+https://github.com/mkaz/oneliner
 ```
 
 
-**Step 2:** Create oneliner.conf, see [Configuration below](#configuration)
+**Step 2:** Create config.toml, see [Configuration below](#configuration)
 
 ## Usage
 
@@ -49,27 +49,19 @@ Multiple journals, use `--journal` flag, requires config
 
 The config file is in TOML format.
 
-The only required parameter in the `oneliner.conf` config is the `path` which specifies where to save the notes file. The other parameters, if not specified, will use their defaults.
+The only required parameter in the `config.toml` file is the `path` which specifies where to save the notes file. The other parameters, if not specified, will use their defaults.
 
 To save to multiple journals, use a `[journals]` section in the config file and specify a journal_path and journal_filename, where "journal" would be the flagged passed in. For example, to create a movies journal specify `movies_path` and `movies_filename` and then use `-j movies` flag.
 
 ### Where to put the config
 
-The program looks for the config file using the following:
+The program looks for the config file at:
 
-1. Command-line argument. Use `oneliner --conf /path/to/oneliner.conf`
+1. `$HOME/.config/oneliner/config.toml` (default location)
 
-2. Look for platform config directory
+2. Custom location using command-line argument: `oneliner --conf /path/to/config.toml`
 
-    a. Linux: `${XDG_CONFIG_HOME}/oneliner.conf`
-
-    b. Windows: `${APPDATA}/oneliner.conf`
-
-3. Look for `${HOME}/.config/oneliner.conf`
-
-4. Current directions `./oneliner.conf`
-
-If not specified or found in any of the above locations, `oneliner` will error out with a message to set the configuration file.
+If the config file is not found in the default location, `oneliner` will display instructions for creating the config file.
 
 ### Sample Config
 
@@ -99,7 +91,7 @@ filename = 'movies-%Y.txt'
 path = '/Users/mkaz/Documents/Lists'
 
 # For time parameters see:
-# https://docs.rs/chrono/0.4.0/chrono/format/strftime/index.html
+# https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior
 ```
 
 ## License
